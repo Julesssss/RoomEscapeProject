@@ -413,6 +413,10 @@
 		<None Include="..\..\Config\DefaultEditor.ini" />
 		<None Include="..\..\Config\DefaultEngine.ini" />
 		<None Include="..\..\Config\DefaultGame.ini" />
+		<ClCompile Include="..\..\Source\RoomEscape\OpenDoor.cpp" />
+		<ClInclude Include="..\..\Source\RoomEscape\OpenDoor.h" />
+		<ClCompile Include="..\..\Source\RoomEscape\PositionReport.cpp" />
+		<ClInclude Include="..\..\Source\RoomEscape\PositionReport.h" />
 		<None Include="..\..\Source\RoomEscape\RoomEscape.Build.cs" />
 		<ClCompile Include="..\..\Source\RoomEscape\RoomEscape.cpp" />
 		<ClInclude Include="..\..\Source\RoomEscape\RoomEscape.h" />
