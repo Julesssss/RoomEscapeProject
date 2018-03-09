@@ -1,6 +1,7 @@
 
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
+#include "Engine/World.h"
 #include <string>
 
 
@@ -19,29 +20,43 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
+	Owner = GetOwner();
+	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
+}
 
-	// find Actor
-	AActor * owner = GetOwner();
-	FQuat rot = owner->GetTransform().GetRotation();
-
-	UE_LOG(LogTemp, Warning, TEXT("Door Z rotation is %s"), *rot.ToString());
-
-	// create rotation
-	FRotator NewRotation = FRotator(0.0f, 70.f ,0.0f);
-
+void UOpenDoor::OpenDoor()
+{
 	// set door rotation
-	owner->SetActorRotation(NewRotation);
-
-	UE_LOG(LogTemp, Warning, TEXT("New door rotation is %s"), *rot.ToString());
+	Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
 
 }
 
+void UOpenDoor::CloseDoor()
+{
+	// set door rotation
+	Owner->SetActorRotation(FRotator(0.0f, 0.f, 0.0f));
+
+	FQuat rot = Owner->GetTransform().GetRotation();
+	UE_LOG(LogTemp, Warning, TEXT("New door rotation is %s"), *rot.ToString());
+}
 
 // Called every frame
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	// poll trigger volume every frame
+
+	// if ActorThatOpens is in volume, open door
+	if (PressurePlate->IsOverlappingActor(ActorThatOpens)) {
+		OpenDoor();
+		DoorLastOpenTime = GetWorld()->GetTimeSeconds();
+	}
+
+	// check if time to close door
+	if (GetWorld()->GetTimeSeconds() > (DoorLastOpenTime + DoorCloseDelay)) {
+		CloseDoor();
+	}
+
 }
 

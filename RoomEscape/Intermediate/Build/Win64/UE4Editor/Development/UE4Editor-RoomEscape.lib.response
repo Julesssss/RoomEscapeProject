@@ -7,8 +7,12 @@
 /IGNORE:4221
 /NODEFAULTLIB
 "C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\julia\Projects\Unreal\RoomEscapeProject\RoomEscape\Intermediate\Build\Win64\UE4Editor\Development\RoomEscape\OpenDoor.cpp.obj"
+"C:\Users\julia\Projects\Unreal\RoomEscapeProject\RoomEscape\Intermediate\Build\Win64\UE4Editor\Development\RoomEscape\PositionReport.cpp.obj"
 "C:\Users\julia\Projects\Unreal\RoomEscapeProject\RoomEscape\Intermediate\Build\Win64\UE4Editor\Development\RoomEscape\RoomEscape.cpp.obj"
 "C:\Users\julia\Projects\Unreal\RoomEscapeProject\RoomEscape\Intermediate\Build\Win64\UE4Editor\Development\RoomEscape\RoomEscapeGameModeBase.cpp.obj"
+"C:\Users\julia\Projects\Unreal\RoomEscapeProject\RoomEscape\Intermediate\Build\Win64\UE4Editor\Development\RoomEscape\OpenDoor.gen.cpp.obj"
+"C:\Users\julia\Projects\Unreal\RoomEscapeProject\RoomEscape\Intermediate\Build\Win64\UE4Editor\Development\RoomEscape\PositionReport.gen.cpp.obj"
 "C:\Users\julia\Projects\Unreal\RoomEscapeProject\RoomEscape\Intermediate\Build\Win64\UE4Editor\Development\RoomEscape\RoomEscape.init.gen.cpp.obj"
 "C:\Users\julia\Projects\Unreal\RoomEscapeProject\RoomEscape\Intermediate\Build\Win64\UE4Editor\Development\RoomEscape\RoomEscapeGameModeBase.gen.cpp.obj"
 "C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\RoomEscape\PCLaunch.rc.res"

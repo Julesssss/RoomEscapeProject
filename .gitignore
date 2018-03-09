@@ -80,3 +80,7 @@ DerivedDataCache/*
 */DerivedDataCache
 
 RoomEscape/Content/StarterContent/
+RoomEscape/Binaries/Win64/RoomEscapeEditor.target
+RoomEscape/Binaries/Win64/UE4Editor.modules
+RoomEscape/Binaries/Win64/RoomEscapeEditor.target
+RoomEscape/Intermediate/Build/ActionHistory.bin
