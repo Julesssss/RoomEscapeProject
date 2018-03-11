@@ -28,6 +28,7 @@ void UOpenDoor::OpenDoor()
 {
 	// set door rotation
 	Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
+	// UE_LOG(LogTemp, Warning, TEXT("Door Open"));
 
 }
 
@@ -37,7 +38,7 @@ void UOpenDoor::CloseDoor()
 	Owner->SetActorRotation(FRotator(0.0f, 0.f, 0.0f));
 
 	FQuat rot = Owner->GetTransform().GetRotation();
-	UE_LOG(LogTemp, Warning, TEXT("New door rotation is %s"), *rot.ToString());
+	// UE_LOG(LogTemp, Warning, TEXT("Door Closed"));
 }
 
 // Called every frame

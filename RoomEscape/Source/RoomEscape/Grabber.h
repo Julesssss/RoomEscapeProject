@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Components/InputComponent.h"
 #include "Components/ActorComponent.h"
 #include "Grabber.generated.h"
 
@@ -28,4 +30,25 @@ private:
 
 	// how far can the grabber reach in cm
 	float Reach = 100.f;
+
+	/// InputHandle should live within PlayerController, but it's okay for the moment.
+	UPhysicsHandleComponent * PhysicsHandle = nullptr;
+	UInputComponent * InputComponent = nullptr;
+
+	// Raycast and grab Phsics bodies in reach
+	void Grab();
+
+	// Release grab when key is unpressed
+	void Release();
+
+	void FindPhysicsComponent();
+
+	void FindInputComponent();
+
+	const FHitResult GetFirstPhysicsBodyInReach();
+
+	// Returns reach line
+	FVector GetLineReachStart();
+	FVector GetLineReachEnd();
+
 };
