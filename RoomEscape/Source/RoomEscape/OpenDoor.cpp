@@ -1,9 +1,11 @@
 
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
+#include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
 #include <string>
 
+#define OUT
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
@@ -21,24 +23,6 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 	Owner = GetOwner();
-	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
-}
-
-void UOpenDoor::OpenDoor()
-{
-	// set door rotation
-	Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
-	// UE_LOG(LogTemp, Warning, TEXT("Door Open"));
-
-}
-
-void UOpenDoor::CloseDoor()
-{
-	// set door rotation
-	Owner->SetActorRotation(FRotator(0.0f, 0.f, 0.0f));
-
-	FQuat rot = Owner->GetTransform().GetRotation();
-	// UE_LOG(LogTemp, Warning, TEXT("Door Closed"));
 }
 
 // Called every frame
@@ -47,17 +31,29 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// poll trigger volume every frame
-
-	// if ActorThatOpens is in volume, open door
-	if (PressurePlate->IsOverlappingActor(ActorThatOpens)) {
-		OpenDoor();
-		DoorLastOpenTime = GetWorld()->GetTimeSeconds();
+	if (GetTotalMassOfActorsOnPlate() > TRIGGER_MASS) {
+		OnOpen.Broadcast();
+	} else {
+		OnClose.Broadcast();
+		UE_LOG(LogTemp, Warning, TEXT("onClose?"))
 	}
 
-	// check if time to close door
-	if (GetWorld()->GetTimeSeconds() > (DoorLastOpenTime + DoorCloseDelay)) {
-		CloseDoor();
-	}
+}
 
+float UOpenDoor::GetTotalMassOfActorsOnPlate() {
+	float totalMass = 0.f;
+
+	// Find overlapping Actors
+	TArray<AActor*> OverlappingActors;
+
+	if (PressurePlate == nullptr) { return 0.f; }
+	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
+	
+	for (const auto* Actor: OverlappingActors) {
+		totalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Total mass: %f"), totalMass)
+
+	return totalMass;
 }
 

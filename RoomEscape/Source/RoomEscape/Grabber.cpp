@@ -54,6 +54,7 @@ void UGrabber::Grab() {
 	auto ActorHit = hitResult.GetActor();
 
 	if (ActorHit) {
+		if (PhysicsHandle == nullptr) { return; }
 		PhysicsHandle->GrabComponent(
 			ComponentToGrab,
 			NAME_None,
@@ -66,16 +67,16 @@ void UGrabber::Grab() {
 
 void UGrabber::Release() {
 	UE_LOG(LogTemp, Warning, TEXT("Drop"));
+	if (PhysicsHandle == nullptr) { return; }
 	PhysicsHandle->ReleaseComponent();
 }
 
 /// Called every frame
-void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
+void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// If PhysicsHandleAttached, 
-	if (PhysicsHandle->GrabbedComponent) {
+	if (PhysicsHandle != nullptr && PhysicsHandle->GrabbedComponent) {
 		// Move object we are 'holding'
 		PhysicsHandle->SetTargetLocation(GetLineReachEnd());
 	}
@@ -83,8 +84,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 }
 
 const FHitResult UGrabber::GetFirstPhysicsBodyInReach() {
-
-	
 
 	//DrawDebugLine(
 	//	GetWorld(), playerViewPointLocation,

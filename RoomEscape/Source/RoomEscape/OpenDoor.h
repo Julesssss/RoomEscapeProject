@@ -7,6 +7,7 @@
 #include "Components/ActorComponent.h"
 #include "OpenDoor.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorEvent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ROOMESCAPE_API UOpenDoor : public UActorComponent
@@ -21,28 +22,27 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	void OpenDoor();
-	void CloseDoor();
+	UPROPERTY(BlueprintAssignable)
+	FDoorEvent OnOpen;
+
+	UPROPERTY(BlueprintAssignable)
+	FDoorEvent OnClose;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	UPROPERTY(EditAnywhere)
-	float OpenAngle = 90.f;
 
 	UPROPERTY(EditAnywhere)
-	float DoorCloseDelay = 1.f;
-
-	float DoorLastOpenTime;
+	int TRIGGER_MASS = 42.f;
 
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
+	ATriggerVolume* PressurePlate = nullptr;
 
-	UPROPERTY(EditAnywhere)
-	AActor* ActorThatOpens;
-	AActor* Owner; // the owning door
+	AActor* Owner = nullptr; // the owning door
+
+	float GetTotalMassOfActorsOnPlate();
 
 };
 
